@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 if(opt.getCheckedRadioButtonId()==R.id.optDividir){
                     respuesta = num1/num2;
                 }
-
-                opt = findViewById(R.id.opt0pciones2);
                 if(opt.getCheckedRadioButtonId()==R.id.optPorcentaje){
                     respuesta = (num1*num2)/100;
                 }

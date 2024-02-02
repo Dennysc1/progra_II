@@ -25,6 +25,7 @@
 
     <EditText
         android:id="@+id/txtnum1"
+        android:text="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/lblnum1"
@@ -67,33 +68,29 @@
             android:text="dividir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </RadioGroup>
-
-    <RadioGroup
-        android:id="@+id/opt0pciones2"
-        android:layout_below="@+id/txtnum2"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="205dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/optPorcentaje"
+            android:layout_marginTop="-190dp"
             android:text="porcentaje"
+            android:layout_marginLeft="205dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/optExponencial"
             android:text="exponencial"
+            android:layout_marginLeft="205dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/optFactorial"
             android:text="factorial"
+            android:layout_marginLeft="205dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <RadioButton
             android:id="@+id/optRaiz"
             android:text="raiz"
+            android:layout_marginLeft="205dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </RadioGroup>
