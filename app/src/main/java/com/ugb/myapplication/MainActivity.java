@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(opt.getCheckedRadioButtonId()==R.id.optRaiz){
                     Math math = null;
-                    respuesta = Math.pow(num1, 0.5);
+                    respuesta = Math.pow(num1, 1/num2);
                 }
 
                 tempVal = findViewById(R.id.lblrespuesta);
