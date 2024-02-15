@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         tbh.addTab(tbh.newTabSpec("LON").setContent(R.id.tablongitud).setIndicator("lONGITUD",null));
         tbh.addTab(tbh.newTabSpec("ALM").setContent(R.id.tabalmacenamiento).setIndicator("ALMACENAMIENTO",null));
         tbh.addTab(tbh.newTabSpec("MON").setContent(R.id.tabmonedas).setIndicator("MONEDAS",null));
+        tbh.addTab(tbh.newTabSpec("TIE").setContent(R.id.tabtiempo).setIndicator("TIEMPO",null));
         btn = findViewById(R.id.btnConvertirLongitud);
+        btn = findViewById(R.id.btnConvertirAlmacenamiento);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
                 double resp = miobj.convertir(0, de, a, cantidad);
                 Toast.makeText(getApplicationContext(),"Respuesta: "+ resp, Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -55,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
 class conversores{
     double[][] valores={
             {1, 100, 39.3701, 3.28084, 1.193, 1.09361, 0.001, 0.000621371},
-            {1},
+            {1, 1000000, 1000, 0.001, 0.000001, 0.0000000001},
             {1}
     };
     public double convertir(int opcion, int de, int a, double cantidad){
         return valores[opcion][a]/valores[opcion][de]*cantidad;
     }
+
 }

@@ -10,4 +10,12 @@
         <item>Km</item>
         <item>Milla</item>
     </string-array>
+    <string-array name="spnAlmacenamiento">
+        <item>MB</item>
+        <item>B</item>
+        <item>KB</item>
+        <item>GB</item>
+        <item>TB</item>
+        <item>PB</item>
+    </string-array>
 </resources>
