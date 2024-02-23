@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 class conversores {
     double[][] valores = {
-            // Longitud
+
             {1, 1.4308, 1.19599, 10.7639, 0.0022896393817974, 0.0001431, 0.0001},
     };
 
