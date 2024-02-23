@@ -1,96 +1,196 @@
 package com.ugb.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Spinner;
-import android.widget.EditText;
-import android.widget.Button;
-import android.view.View;
 import android.widget.Toast;
-import android.annotation.SuppressLint;
 
 public class MainActivity extends AppCompatActivity {
-
     TabHost tbh;
-    TextView tempVal;
-    Spinner spnDe, spnA;
-    Spinner spnDeAlmacenamiento, spnAAlmacenamiento;
-    Spinner spnDeMonedas, spnAMonedas;
-    EditText txtCantidadLongitud; //
-    EditText txtCantidadAlmacenamiento;
-    EditText txtCantidadMonedas;
-    Button btn;
-    conversores miobj = new conversores();
+    TextView tempval;
+    Spinner spn;
+    Button btnLongitud;
+    Button btnVolumen;
+    Button btnMasa;
+    Button btnAlmacenamiento;
+    Button btnTransmision;
+    Button btnMonedas;
+    Button btnTiempo;
+    conversores miObj = new conversores();
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tbh = findViewById(R.id.tbhconversor);
+        tbh = findViewById(R.id.tbhConversor);
         tbh.setup();
 
-        tbh.addTab(tbh.newTabSpec("LON").setContent(R.id.tablongitud).setIndicator(getString(R.string.longitud)));
-        tbh.addTab(tbh.newTabSpec("ALM").setContent(R.id.tabalmacenamiento).setIndicator(getString(R.string.almacenamiento)));
-        tbh.addTab(tbh.newTabSpec("MON").setContent(R.id.tabmonedas).setIndicator(getString(R.string.monedas)));
-        // Agregar pestañas adicionales para masa, volumen y tiempo si lo deseas
+        tbh.addTab(tbh.newTabSpec("LON").setContent(R.id.tabLongitud).setIndicator("LONGITUD", null));
+        tbh.addTab(tbh.newTabSpec("VOL").setContent(R.id.tabVolumen).setIndicator("VOLUMEN", null));
+        tbh.addTab(tbh.newTabSpec("MAS").setContent(R.id.tabMasa).setIndicator("MASA", null));
+        tbh.addTab(tbh.newTabSpec("ALM").setContent(R.id.tabAlmacenamiento).setIndicator("ALMACENAMIENTO", null));
+        tbh.addTab(tbh.newTabSpec("TRS").setContent(R.id.tabTransmision).setIndicator("TRANSMISION", null));
+        tbh.addTab(tbh.newTabSpec("MNS").setContent(R.id.tabMonedas).setIndicator("MONEDAS", null));
+        tbh.addTab(tbh.newTabSpec("TM").setContent(R.id.tabTiempo).setIndicator("TIEMPO", null));
 
-        btn = findViewById(R.id.btnConvertirLongitud);
-        btn.setOnClickListener(new View.OnClickListener() {
+        // Botón para conversión de longitud
+        btnLongitud = findViewById(R.id.btnConvertirLongitud);
+        btnLongitud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spnDe = findViewById(R.id.spnDelongitud);
-                int de = spnDe.getSelectedItemPosition();
+                try {
+                    // Lógica de conversión de longitud
+                    spn = findViewById(R.id.spnDElongitud);
+                    int de = spn.getSelectedItemPosition();
 
-                spnA = findViewById(R.id.spnAlongitud);
-                int a = spnA.getSelectedItemPosition();
+                    spn = findViewById(R.id.spnAlongitud);
+                    int a = spn.getSelectedItemPosition();
 
-                tempVal = findViewById(R.id.txtCantidadLongitud);
-                double cantidad = Double.parseDouble(tempVal.getText().toString());
-
-                double resp = miobj.convertir(0, de, a, cantidad); // Se cambia a convertir(0, de, a, cantidad) para la conversión de longitud
-                Toast.makeText(getApplicationContext(),"Respuesta: "+ resp, Toast.LENGTH_LONG).show();
+                    tempval = findViewById(R.id.txtCantidadLongitud);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(0, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        // Botón de conversión de almacenamiento
-        Button btnConvertirAlmacenamiento = findViewById(R.id.btnConvertirAlmacenamiento);
-        btnConvertirAlmacenamiento.setOnClickListener(new View.OnClickListener() {
+        // Botón para conversión de volumen
+        btnVolumen = findViewById(R.id.btnConvertirVolumen);
+        btnVolumen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spnDeAlmacenamiento = findViewById(R.id.spnDeAlmacenamiento);
-                int de = spnDeAlmacenamiento.getSelectedItemPosition();
+                try {
+                    spn = findViewById(R.id.spnDEVolumen);
+                    int de = spn.getSelectedItemPosition();
 
-                spnAAlmacenamiento = findViewById(R.id.spnAAlmacenamiento);
-                int a = spnAAlmacenamiento.getSelectedItemPosition();
+                    spn = findViewById(R.id.spnAVolumen);
+                    int a = spn.getSelectedItemPosition();
 
-                txtCantidadAlmacenamiento = findViewById(R.id.txtCantidadAlmacenamiento);
-                double cantidad = Double.parseDouble(txtCantidadAlmacenamiento.getText().toString());
-
-                double resp = miobj.convertirAlmacenamiento(de, a, cantidad);
-                Toast.makeText(getApplicationContext(),"Respuesta almacenamiento: "+ resp, Toast.LENGTH_LONG).show();
+                    tempval = findViewById(R.id.txtCantidadDeVolumen);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(1, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        // Botón de conversión de monedas
-        Button btnConvertirMonedas = findViewById(R.id.btnConvertirMonedas);
-        btnConvertirMonedas.setOnClickListener(new View.OnClickListener() {
+        // Botón para conversión de masa
+        btnMasa = findViewById(R.id.btnConvertirMasa);
+        btnMasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spnDeMonedas = findViewById(R.id.spnDeMonedas);
-                int de = spnDeMonedas.getSelectedItemPosition();
+                try {
+                    spn = findViewById(R.id.spnDEMasa);
+                    int de = spn.getSelectedItemPosition();
 
-                spnAMonedas = findViewById(R.id.spnAMonedas);
-                int a = spnAMonedas.getSelectedItemPosition();
+                    spn = findViewById(R.id.spnAMasa);
+                    int a = spn.getSelectedItemPosition();
 
-                txtCantidadMonedas = findViewById(R.id.txtCantidadMonedas);
-                double cantidad = Double.parseDouble(txtCantidadMonedas.getText().toString());
+                    tempval = findViewById(R.id.txtCantidadDeMasa);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(2, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
-                double resp = miobj.convertirMonedas(de, a, cantidad);
-                Toast.makeText(getApplicationContext(),"Respuesta monedas: "+ resp, Toast.LENGTH_LONG).show();
+        // Botón para conversión de almacenamiento
+        btnAlmacenamiento = findViewById(R.id.btnConvertirAlmacenamiento);
+        btnAlmacenamiento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    spn = findViewById(R.id.spnDEAlmacenamiento);
+                    int de = spn.getSelectedItemPosition();
+
+                    spn = findViewById(R.id.spnAAlmacenamiento);
+                    int a = spn.getSelectedItemPosition();
+
+                    tempval = findViewById(R.id.txtCantidadDeAlmacenamiento);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(3, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        // Botón para conversión de transmisión
+        btnTransmision = findViewById(R.id.btnConvertirTransmision);
+        btnTransmision.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    spn = findViewById(R.id.spnDETransmision);
+                    int de = spn.getSelectedItemPosition();
+
+                    spn = findViewById(R.id.spnATransmision);
+                    int a = spn.getSelectedItemPosition();
+
+                    tempval = findViewById(R.id.txtCantidadDeTransmision);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(4, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        // Botón para conversión de monedas
+        btnMonedas = findViewById(R.id.btnConvertirMonedas);
+        btnMonedas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    spn = findViewById(R.id.spnDEMonedas);
+                    int de = spn.getSelectedItemPosition();
+
+                    spn = findViewById(R.id.spnAMonedas);
+                    int a = spn.getSelectedItemPosition();
+
+                    tempval = findViewById(R.id.txtCantidadDeMonedas);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(5, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        // Botón para conversión de tiempo
+        btnTiempo = findViewById(R.id.btnConvertirTiempo);
+        btnTiempo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    spn = findViewById(R.id.spnDETiempo);
+                    int de = spn.getSelectedItemPosition();
+
+                    spn = findViewById(R.id.spnATiempo);
+                    int a = spn.getSelectedItemPosition();
+
+                    tempval = findViewById(R.id.txtCantidadDeTiempo);
+                    double cantidad = Double.parseDouble(tempval.getText().toString());
+                    double resp = miObj.convertir(6, de, a, cantidad);
+                    Toast.makeText(getApplicationContext(), "Respuesta:" + resp, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -99,30 +199,22 @@ public class MainActivity extends AppCompatActivity {
 class conversores {
     double[][] valores = {
             // Longitud
-            {1, 100, 39.3701, 3.28084, 1.1963081929167, 1.09361, 0.001, 0.000621371},
-            // Almacenamiento
-            {1, 0.001, 0.000001, 0.000000001},
-            // Monedas
-            {1, 0.85, 109.18, 0.72, 0.78, 0.91, 0.93, 20.22},
-            // Masa
-            {1, 0.001, 0.00220462},
+            {1, 100, 39.3701, 3.28084, 1.193, 1.09361, 0.001, 0.000621371},
             // Volumen
-            {1, 1000, 0.001, 0.000000001},
+            {1, 0.001, 4.16667, 1.05669, 0.264172, 1000, 3.51951, 35.1951, 0.0353147, 61.0237},
+            // Masa
+            {1, 1000, 0.00220462, 0.035274, 0.001, 1e+6, 9.8421e-7, 1.1023e-6},
+            // Almacenamiento
+            {1, 1000, 8e-6, 0.008, 8000, 0.001, 1e-6, 1e-9, 1e-12, 8.8818e-13},
+            // Transmisión
+            {1, 953.674, 125, 1000, 976563, 125000, 1e+6, 1e+9, 0.125, 0.931323, 0.001, 0.000125, 0.000909495},
+            // Monedas
+            {1, 17.10, 24.63, 7.81, 36.73, 516.29, 1.00, 2.01, 1.35, 0.93, 150.13, 36.27, 3914.96, 1.54},
             // Tiempo
-            {1, 60, 3600, 86400, 604800, 2.628e+6, 3.154e+7}
+            {1, 24, 1440, 86400, 8.64e+7, 0.142857, 0.0328767, 0.00273973, 0.000273973, 2.7397e-5},
     };
 
     public double convertir(int opcion, int de, int a, double cantidad) {
         return valores[opcion][a] / valores[opcion][de] * cantidad;
-    }
-
-    // Agregar métodos adicionales para conversión de otras unidades según sea necesario
-
-    public double convertirAlmacenamiento(int de, int a, double cantidad) {
-        return valores[1][a] / valores[1][de] * cantidad;
-    }
-
-    public double convertirMonedas(int de, int a, double cantidad) {
-        return valores[2][a] / valores[2][de] * cantidad;
     }
 }
