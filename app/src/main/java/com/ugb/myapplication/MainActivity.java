@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                      public void onSensorChanged(SensorEvent Event) {
                             double valor = Event.values[0];
                             tempVal.setText("luz"+ valor);
-                            if (valor<=20){
+                            if (valor<=1000){
                                    getWindow().getDecorView().setBackgroundColor(Color.BLUE);
-                            }else if (valor<=50){
+                            }else if (valor<=2000){
                                    getWindow().getDecorView().setBackgroundColor(Color.RED);
-                            }else if (valor>50){
+                            }else if (valor>2000){
                                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                             }
 
