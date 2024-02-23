@@ -1,87 +1,67 @@
 package com.ugb.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Spinner;
-import android.widget.EditText;
-import android.widget.Button;
 import android.view.View;
-import android.widget.Toast;
-import android.annotation.SuppressLint;
-import java.text.BreakIterator;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
        TextView tempVal;
-       SensorManager sensorManager;
-       Sensor sensor;
-       SensorEventListener sensorEventListener;
+       LocationManager locationManager;
+       LocationListener locationListener;
 
 
        @Override
        protected void onCreate(Bundle savedInstanceState) {
               super.onCreate(savedInstanceState);
               setContentView(R.layout.activity_main);
-              tempVal = findViewById(R.id.lblsensoracelerometro);
-              activarsensordeluz();
+              tempVal = findViewById(R.id.lblSensorGps);
+              obtenerPosicion();
        }
+       private void obtenerPosicion(){
+              try {
+                     locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 1);
+                            tempVal.setText("Solicitando permisos de localización...");
+                     }
+        /*Location location;
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mostrarPosicion(location);*/
 
-       @Override
-       protected void onResume() {
-              iniciar();
-              super.onResume();
-       }
-
-       @Override
-       protected void onPause() {
-              detener();
-              super.onPause();
-       }
-
-       private void activarsensordeluz(){
-              sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-              sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-              if(sensor==null){
-                     tempVal.setText("tu cell no tiene el sensor");
-                     finish();
-              }
-
-              sensorEventListener = new SensorEventListener() {
-                     @Override
-                     public void onSensorChanged(SensorEvent Event) {
-                            double valor = Event.values[0];
-                            tempVal.setText("proximidad"+ valor);
-                            if (valor<=2){
-                                   getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
-                            }else if (valor<=5){
-                                   getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                            }else if (valor>50){
-                                   getWindow().getDecorView().setBackgroundColor(Color.MAGENTA);
+                     locationListener = new LocationListener() {
+                            @Override
+                            public void onLocationChanged(@NonNull Location location) {
+                                   mostrarPosicion(location);
                             }
-
-                     }
-
-                     @Override
-                     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-                     }
-              };
+                     };
+                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 0, locationListener);
+              }catch (Exception e){
+                     tempVal.setText(e.getMessage());
+              }
+       }
+       private void mostrarPosicion(Location location){
+              tempVal.setText("Poscion -  Latitud: " + location.getLatitude() + ";  Longitud: " + location.getLongitude() + ";  Altitud: " + location.getAltitude());
 
        }
-       private void iniciar(){
-              sensorManager.registerListener(sensorEventListener, sensor, 2000*1000);
-       }
-       private void  detener(){
-
-              sensorManager.unregisterListener(sensorEventListener);
-       }
-
 
 }
