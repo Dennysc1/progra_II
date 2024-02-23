@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
        private void activarsensordeluz(){
               sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-              sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+              sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
               if(sensor==null){
                      tempVal.setText("tu cell no tiene el sensor");
                      finish();
@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
                      @Override
                      public void onSensorChanged(SensorEvent Event) {
                             double valor = Event.values[0];
-                            tempVal.setText("luz"+ valor);
-                            if (valor<=20){
-                                   getWindow().getDecorView().setBackgroundColor(Color.BLUE);
-                            }else if (valor<=50){
-                                   getWindow().getDecorView().setBackgroundColor(Color.RED);
-                            }else if (valor>50){
+                            tempVal.setText("proximidad"+ valor);
+                            if (valor<=2){
+                                   getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
+                            }else if (valor<=5){
                                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                            }else if (valor>50){
+                                   getWindow().getDecorView().setBackgroundColor(Color.MAGENTA);
                             }
 
                      }

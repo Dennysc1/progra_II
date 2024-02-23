@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:id="@+id/lblsensoracelerometro"
-        android:text="sensor luz: "
+        android:text="sensor proximidad: "
         android:layout_marginLeft="20dp" />
 
 </RelativeLayout>
