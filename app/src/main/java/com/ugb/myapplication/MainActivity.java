@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
               super.onCreate(savedInstanceState);
               setContentView(R.layout.activity_main);
               tempVal = findViewById(R.id.lblsensoracelerometro);
-              activarsensordeluz();
+              activarsensordeacelerometro();
        }
 
        @Override
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
               super.onPause();
        }
 
-       private void activarsensordeluz(){
+       private void activarsensordeacelerometro(){
               sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
               sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
               if(sensor==null){
@@ -57,14 +57,7 @@ public class MainActivity extends AppCompatActivity {
                      @Override
                      public void onSensorChanged(SensorEvent Event) {
                             double valor = Event.values[0];
-                            tempVal.setText("luz"+ valor);
-                            if (valor<=1000){
-                                   getWindow().getDecorView().setBackgroundColor(Color.BLUE);
-                            }else if (valor<=2000){
-                                   getWindow().getDecorView().setBackgroundColor(Color.RED);
-                            }else if (valor>2000){
-                                   getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                            }
+                            tempVal.setText("aceleomtro: x= "+ Event.values[0]+ ", y= "+ Event.values[1] +", z= "+ Event.values[2]);
 
                      }
 
