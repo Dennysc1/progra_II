@@ -60,15 +60,16 @@ public class lista_amigos extends AppCompatActivity {
         menu.setHeaderTitle(cAmigos.getString(1)); //1 es el nombre
     }
 
+
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         try{
             switch (item.getItemId()){
-                case R.id.mnxAgregar:
+                case R.id.mnxagregar:
                     parametros.putString("accion","nuevo");
                     abrirActividad(parametros);
                     break;
-                case R.id.mnxModificar:
+                case R.id.mnxmodificar:
                     String[] amigos = {
                             cAmigos.getString(0), //idAmigo
                             cAmigos.getString(1), //nombre
@@ -81,7 +82,7 @@ public class lista_amigos extends AppCompatActivity {
                     parametros.putStringArray("amigos", amigos);
                     abrirActividad(parametros);
                     break;
-                case R.id.mnxEliminar:
+                case R.id.mnxeliminar:
                     eliminarAmigos();
                     break;
             }
