@@ -1,6 +1,7 @@
 package com.ugb.myapplication;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -9,7 +10,7 @@ import androidx.annotation.Nullable;
 public class DB extends SQLiteOpenHelper {
     private static final String dbname = "amigos";
     private static final int v = 1;
-    private static final String SQLdb = "CREATE TABLE amigos (idAmigo int primary key autoincrement, nombre text, direccion text, telefono text, " +
+    private static final String SQLdb = "CREATE TABLE amigos (idAmigo integer primary key autoincrement, nombre text, direccion text, telefono text, " +
             "email text, dui text)";
 
     public DB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -42,5 +43,10 @@ public class DB extends SQLiteOpenHelper {
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+    public Cursor consultar_amigos(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM amigos ORDER BY nombre", null);
+        return cursor;
     }
 }
