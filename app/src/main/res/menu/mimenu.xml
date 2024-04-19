@@ -10,5 +10,5 @@
         android:title="Modificar" />
     <item
         android:id="@+id/mnxeliminar"
-        android:title="Eliminar" />
+        android:title="-----" />
 </menu>
