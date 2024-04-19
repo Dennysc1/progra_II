@@ -5,13 +5,10 @@
     <item
         android:id="@+id/mnxagregar"
         android:title="Agregar" />
-
     <item
         android:id="@+id/mnxmodificar"
         android:title="Modificar" />
-
     <item
         android:id="@+id/mnxeliminar"
         android:title="Eliminar" />
-
 </menu>

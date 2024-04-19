@@ -1,29 +1,45 @@
 package com.ugb.myapplication;
 
 public class amigos {
+    String _id;
+    String _rev;
     String idAmigo;
     String nombre;
     String direccion;
     String telefono;
     String email;
     String dui;
-    String foto;
-    public amigos(String idAmigo, String nombre, String direccion, String telefono, String email, String dui) {
+    String urlFotoAmigo;
+
+    public amigos(String _id, String _rev, String idAmigo, String nombre, String direccion, String telefono, String email, String dui, String urlFoto) {
+        this._id = _id;
+        this._rev = _rev;
         this.idAmigo = idAmigo;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.dui = dui;
-        this.foto = foto;
+        this.urlFotoAmigo = urlFoto;
+    }
+    public String get_id() {
+        return _id;
+    }
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+    public String get_rev() {
+        return _rev;
+    }
+    public void set_rev(String _rev) {
+        this._rev = _rev;
+    }
+    public String getUrlFotoAmigo() {
+        return urlFotoAmigo;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setUrlFotoAmigo(String urlFotoAmigo) {
+        this.urlFotoAmigo = urlFotoAmigo;
     }
 
     public String getIdAmigo() {

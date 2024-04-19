@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class adaptadorImagenes extends BaseAdapter {
     Context context;
     ArrayList<amigos> datosAmigosArrayList;
-    amigos misAmigos;
+    amigos datosAmigos;
     LayoutInflater layoutInflater;
     public adaptadorImagenes(Context context, ArrayList<amigos> datosAmigosArrayList) {
         this.context = context;
@@ -32,29 +32,29 @@ public class adaptadorImagenes extends BaseAdapter {
     }
     @Override
     public long getItemId(int i) {
-        return Long.parseLong(datosAmigosArrayList.get(i).getIdAmigo());
+        return i; //Long.parseLong(datosAmigosArrayList.get(i).getIdAmigo());
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View itemView = layoutInflater.inflate(R.layout.listview_imagenes, viewGroup, false);
         try{
-            misAmigos = datosAmigosArrayList.get(i);
+            datosAmigos = datosAmigosArrayList.get(i);
 
-            TextView tempVal = itemView.findViewById(R.id.lblNombre);
-            tempVal.setText(misAmigos.getNombre());
+            TextView tempVal = itemView.findViewById(R.id.lblnombre);
+            tempVal.setText(datosAmigos.getNombre());
 
-            tempVal = itemView.findViewById(R.id.lblTelefono);
-            tempVal.setText(misAmigos.getTelefono());
+            tempVal = itemView.findViewById(R.id.lbltelefono);
+            tempVal.setText(datosAmigos.getTelefono());
 
-            tempVal = itemView.findViewById(R.id.lblEmail);
-            tempVal.setText(misAmigos.getEmail());
+            tempVal = itemView.findViewById(R.id.lblemail);
+            tempVal.setText(datosAmigos.getEmail());
 
-            ImageView imgView = itemView.findViewById(R.id.imgFoto);
-            Bitmap imagenBitmap = BitmapFactory.decodeFile(misAmigos.getFoto());
-            imgView.setImageBitmap(imagenBitmap);
+            Bitmap imageBitmap = BitmapFactory.decodeFile(datosAmigos.getUrlFotoAmigo());
+            ImageView img = itemView.findViewById(R.id.imgFoto);
+            img.setImageBitmap(imageBitmap);
         }catch (Exception e){
-            Toast.makeText(context, "Error en Adaptador Imagenes: "+ e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Error al mostrar los datos: "+ e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return itemView;
     }
