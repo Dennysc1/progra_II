@@ -32,7 +32,7 @@ public class lista_prods extends AppCompatActivity {
     DB db;
     ListView lts;
     Cursor cprods;
-    final ArrayList<productos> alprods = new ArrayList<productos>();
+    final ArrayList<productos> alprod = new ArrayList<productos>();
     final ArrayList<productos> alprodsCopy = new ArrayList<productos>();
     productos datosprods;
     FloatingActionButton btn;
@@ -79,7 +79,7 @@ public class lista_prods extends AppCompatActivity {
         try{
             if( datosJSON.length()>0 ){
                 lts = findViewById(R.id.ltsProductos);
-                alprods.clear();
+                alprod.clear();
                 alprodsCopy.clear();
 
                 JSONObject misDatosJSONObject;
@@ -96,11 +96,11 @@ public class lista_prods extends AppCompatActivity {
                             misDatosJSONObject.getString("precio"),
                             misDatosJSONObject.getString("urlCompletaFoto")
                     );
-                    alprods.add(datosprods);
+                    alprod.add(datosprods);
                 }
-                alprodsCopy.addAll(alprods);
+                alprodsCopy.addAll(alprod);
 
-                adaptadorImagenes adImagenes = new adaptadorImagenes(getApplicationContext(), alprods);
+                adaptadorImagenes adImagenes = new adaptadorImagenes(getApplicationContext(), alprod);
                 lts.setAdapter(adImagenes);
 
                 registerForContextMenu(lts);
@@ -186,10 +186,10 @@ public class lista_prods extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try{
-                    alprods.clear();
+                    alprod.clear();
                     String valor = tempVal.getText().toString().trim().toLowerCase();
                     if( valor.length()<=0 ){
-                        alprods.addAll(alprodsCopy);
+                        alprod.addAll(alprodsCopy);
                     }else{
                         for (productos producto : alprodsCopy){
                             String presentacion = producto.getPresentacion();
@@ -200,10 +200,10 @@ public class lista_prods extends AppCompatActivity {
                                     descripcion.trim().toLowerCase().contains(valor) ||
                                     codigo.trim().contains(valor) ||
                                     marca.trim().toLowerCase().contains(valor)){
-                                alprods.add(producto);
+                                alprod.add(producto);
                             }
                         }
-                        adaptadorImagenes adImagenes=new adaptadorImagenes(getApplicationContext(), alprods);
+                        adaptadorImagenes adImagenes=new adaptadorImagenes(getApplicationContext(), alprod);
                         lts.setAdapter(adImagenes);
                     }
                 }catch (Exception e){
