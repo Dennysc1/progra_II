@@ -32,10 +32,10 @@ public class lista_amigos extends AppCompatActivity {
     FloatingActionButton btn;
     ListView lts;
     Cursor cAmigos;
-    amigos misAamigos;
+    fernando misAamigos;
     DB db;
-    final ArrayList<amigos> alAmigos=new ArrayList<amigos>();
-    final ArrayList<amigos> alAmigosCopy=new ArrayList<amigos>();
+    final ArrayList<fernando> alAmigos=new ArrayList<fernando>();
+    final ArrayList<fernando> alFernandoCopy =new ArrayList<fernando>();
     JSONArray datosJSON;
     JSONObject jsonObject;
     obtenerDatosServidor datosServidor;
@@ -70,6 +70,7 @@ public class lista_amigos extends AppCompatActivity {
             di = new detectarInternet(getApplicationContext());
             if( di.hayConexionInternet() ){//online
                 sincronizar();
+                new obtenerDatosServidor();
             }else{//offline
                 obtenerDatosAmigos();
             }
@@ -88,13 +89,11 @@ public class lista_amigos extends AppCompatActivity {
                         jsonObject.put("_id", cAmigos.getString(0));
                         jsonObject.put("_rev", cAmigos.getString(1));
                     }
-                    jsonObject.put("idAmigo", cAmigos.getString(2));
-                    jsonObject.put("nombre", cAmigos.getString(3));
-                    jsonObject.put("direccion", cAmigos.getString(4));
-                    jsonObject.put("telefono", cAmigos.getString(5));
-                    jsonObject.put("email", cAmigos.getString(6));
-                    jsonObject.put("dui", cAmigos.getString(7));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
+                    jsonObject.put("idcos", cAmigos.getString(2));
+                    jsonObject.put("costo", cAmigos.getString(3));
+                    jsonObject.put("precio", cAmigos.getString(4));
+                    jsonObject.put("stock", cAmigos.getString(5));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(6));
                     jsonObject.put("actualizado", "si");
 
                     enviarDatosServidor objGuardarDatosServidor = new enviarDatosServidor(getApplicationContext());
@@ -104,12 +103,10 @@ public class lista_amigos extends AppCompatActivity {
                         String[] datos = new String[]{
                                 respuestaJSONObject.getString("id"),
                                 respuestaJSONObject.getString("rev"),
-                                jsonObject.getString("idAmigo"),
-                                jsonObject.getString("nombre"),
-                                jsonObject.getString("direccion"),
-                                jsonObject.getString("telefono"),
-                                jsonObject.getString("email"),
-                                jsonObject.getString("dui"),
+                                jsonObject.getString("idcos"),
+                                jsonObject.getString("costo"),
+                                jsonObject.getString("precio"),
+                                jsonObject.getString("stock"),
                                 jsonObject.getString("urlCompletaFoto"),
                                 jsonObject.getString("actualizado")
                         };
@@ -144,25 +141,23 @@ public class lista_amigos extends AppCompatActivity {
             if( datosJSON.length()>0 ){
                 lts = findViewById(R.id.ltsAmigos);
                 alAmigos.clear();
-                alAmigosCopy.clear();
+                alFernandoCopy.clear();
 
                 JSONObject misDatosJSONObject;
                 for (int i=0; i<datosJSON.length();i++){
                     misDatosJSONObject = datosJSON.getJSONObject(i).getJSONObject("value");
-                    misAamigos = new amigos(
+                    misAamigos = new fernando(
                             misDatosJSONObject.getString("_id"),
                             misDatosJSONObject.getString("_rev"),
-                            misDatosJSONObject.getString("idAmigo"),
-                            misDatosJSONObject.getString("nombre"),
-                            misDatosJSONObject.getString("direccion"),
-                            misDatosJSONObject.getString("telefono"),
-                            misDatosJSONObject.getString("email"),
-                            misDatosJSONObject.getString("dui"),
+                            misDatosJSONObject.getString("idcos"),
+                            misDatosJSONObject.getString("costo"),
+                            misDatosJSONObject.getString("precio"),
+                            misDatosJSONObject.getString("stock"),
                             misDatosJSONObject.getString("urlCompletaFoto")
                     );
                     alAmigos.add(misAamigos);
                 }
-                alAmigosCopy.addAll(alAmigos);
+                alFernandoCopy.addAll(alAmigos);
                 adaptadorImagenes adImagenes = new adaptadorImagenes(lista_amigos.this, alAmigos);
                 lts.setAdapter(adImagenes);
                 registerForContextMenu(lts);
@@ -182,7 +177,7 @@ public class lista_amigos extends AppCompatActivity {
         try {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
             posicion = info.position;
-            menu.setHeaderTitle(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre"));
+            menu.setHeaderTitle(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("costo"));
         }catch (Exception e){
             mostrarMsg("Error al mostrar el menu: "+ e.getMessage());
         }
@@ -195,7 +190,7 @@ public class lista_amigos extends AppCompatActivity {
                 abrirActividad(parametros);
             } else if (item.getItemId() == R.id.mnxmodificar) {
                 parametros.putString("accion", "modificar");
-                parametros.putString("amigos", datosJSON.getJSONObject(posicion).toString());
+                parametros.putString("fernando", datosJSON.getJSONObject(posicion).toString());
                 abrirActividad(parametros);
             } else if (item.getItemId() == R.id.mnxeliminar) {
                 eliminarAmigos();
@@ -210,13 +205,13 @@ public class lista_amigos extends AppCompatActivity {
         try{
             AlertDialog.Builder confirmar = new AlertDialog.Builder(lista_amigos.this);
             confirmar.setTitle("Estas seguro de eliminar a: ");
-            confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("nombre")); //1 es el nombre
+            confirmar.setMessage(datosJSON.getJSONObject(posicion).getJSONObject("value").getString("costo")); //1 es el nombre
             confirmar.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     try {
                         String respuesta = db.administrar_amigos("eliminar",
-                                new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idAmigo")});
+                                new String[]{"", "", datosJSON.getJSONObject(posicion).getJSONObject("value").getString("idcos")});
                         if (respuesta.equals("ok")) {
                             mostrarMsg("Amigo eliminado con exito");
                             obtenerDatosAmigos();
@@ -255,13 +250,11 @@ public class lista_amigos extends AppCompatActivity {
                     JSONObject jsonObjectValue = new JSONObject();
                     jsonObject.put("_id", cAmigos.getString(0));
                     jsonObject.put("_rev", cAmigos.getString(1));
-                    jsonObject.put("idAmigo", cAmigos.getString(2));
-                    jsonObject.put("nombre", cAmigos.getString(3));
-                    jsonObject.put("direccion", cAmigos.getString(4));
-                    jsonObject.put("telefono", cAmigos.getString(5));
-                    jsonObject.put("email", cAmigos.getString(6));
-                    jsonObject.put("dui", cAmigos.getString(7));
-                    jsonObject.put("urlCompletaFoto", cAmigos.getString(8));
+                    jsonObject.put("idcos", cAmigos.getString(2));
+                    jsonObject.put("costo", cAmigos.getString(3));
+                    jsonObject.put("precio", cAmigos.getString(4));
+                    jsonObject.put("stock", cAmigos.getString(5));
+                    jsonObject.put("urlCompletaFoto", cAmigos.getString(6));
 
                     jsonObjectValue.put("value", jsonObject);
                     datosJSON.put(jsonObjectValue);
@@ -289,19 +282,15 @@ public class lista_amigos extends AppCompatActivity {
                     alAmigos.clear();
                     String valor = tempVal.getText().toString().trim().toLowerCase();
                     if( valor.length()<=0 ){
-                        alAmigos.addAll(alAmigosCopy);
+                        alAmigos.addAll(alFernandoCopy);
                     }else{
-                        for (amigos amigo : alAmigosCopy){
-                            String nombre = amigo.getNombre();
-                            String direccion = amigo.getDireccion();
-                            String tel = amigo.getTelefono();
-                            String email = amigo.getEmail();
-                            String dui = amigo.getDui();
-                            if(nombre.toLowerCase().trim().contains(valor) ||
-                                    direccion.toLowerCase().trim().contains(valor) ||
-                                    tel.trim().contains(valor) ||
-                                    email.trim().toLowerCase().contains(valor) ||
-                                    dui.trim().contains(valor)){
+                        for (fernando amigo : alFernandoCopy){
+                            String costo = amigo.getCosto();
+                            String precio = amigo.getPrecio();
+                            String stock = amigo.getStock();
+                            if(costo.toLowerCase().trim().contains(valor) ||
+                                    precio.toLowerCase().trim().contains(valor) ||
+                                    stock.trim().contains(valor)){
                                 alAmigos.add(amigo);
                             }
                         }

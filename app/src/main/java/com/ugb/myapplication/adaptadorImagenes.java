@@ -11,16 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class adaptadorImagenes extends BaseAdapter {
     Context context;
-    ArrayList<amigos> datosAmigosArrayList;
-    amigos datosAmigos;
+    ArrayList<fernando> datosAmigosArrayList;
+    fernando datosFernando;
     LayoutInflater layoutInflater;
-    public adaptadorImagenes(Context context, ArrayList<amigos> datosAmigosArrayList) {
+    public adaptadorImagenes(Context context, ArrayList<fernando> datosFernandoArrayList) {
         this.context = context;
-        this.datosAmigosArrayList = datosAmigosArrayList;
+        this.datosAmigosArrayList = datosFernandoArrayList;
     }
     @Override
     public int getCount() {
@@ -39,18 +40,28 @@ public class adaptadorImagenes extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View itemView = layoutInflater.inflate(R.layout.listview_imagenes, viewGroup, false);
         try{
-            datosAmigos = datosAmigosArrayList.get(i);
+            datosFernando = datosAmigosArrayList.get(i);
+
+            double cost = Integer.parseInt(datosFernando.getCosto());
+            double pre = Integer.parseInt(datosFernando.getPrecio());
+            double res = (((pre-cost)/pre)*100);
+            DecimalFormat formato1 = new DecimalFormat("#.00");
 
             TextView tempVal = itemView.findViewById(R.id.lblnombre);
-            tempVal.setText(datosAmigos.getNombre());
+            tempVal.setText(datosFernando.getCosto()+"$");
 
             tempVal = itemView.findViewById(R.id.lbltelefono);
-            tempVal.setText(datosAmigos.getTelefono());
+            tempVal.setText(datosFernando.getStock());
 
             tempVal = itemView.findViewById(R.id.lblemail);
-            tempVal.setText(datosAmigos.getEmail());
+            tempVal.setText(datosFernando.getPrecio()+"$");
 
-            Bitmap imageBitmap = BitmapFactory.decodeFile(datosAmigos.getUrlFotoAmigo());
+            tempVal = itemView.findViewById(R.id.lblpor);
+            String respos = String.valueOf(formato1.format(res));
+            tempVal.setText(respos+"%");
+
+
+            Bitmap imageBitmap = BitmapFactory.decodeFile(datosFernando.getUrlFotoAmigo());
             ImageView img = itemView.findViewById(R.id.imgFoto);
             img.setImageBitmap(imageBitmap);
         }catch (Exception e){

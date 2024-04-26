@@ -19,49 +19,33 @@
 
     <EditText
         android:id="@+id/txtnombre"
-        android:hint="Nombre"
+        android:hint="costo"
         android:layout_below="@id/btnImgAmigo"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtdireccion"
-        android:hint="Direccion"
-        android:inputType="textMultiLine"
+        android:hint="precio"
+        android:inputType="number"
         android:layout_below="@id/txtnombre"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtTelefono"
-        android:hint="Telefono"
-        android:inputType="phone"
-        android:layout_below="@id/txtdireccion"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtEmail"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/txtTelefono"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtDui"
-        android:hint="DUI"
+        android:hint="stock"
         android:inputType="number"
-        android:layout_below="@id/txtEmail"
+        android:layout_below="@id/txtdireccion"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/btnGuardarAmigo"
-        android:text="GUARDAR AMIGO"
+        android:text="GUARDAR"
         android:layout_width="match_parent"
-        android:layout_below="@id/txtDui"
+        android:layout_below="@id/txtTelefono"
         android:layout_marginTop="40dp"
         android:layout_height="wrap_content"/>
 
