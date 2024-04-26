@@ -1,4 +1,5 @@
 package com.ugb.myapplication;
+
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -25,7 +26,7 @@ public class enviarDatosServidor extends AsyncTask<String, String, String> {
         String jsonDatos = parametros[0];
         BufferedReader bufferedReader;
         try{
-            URL url = new URL(utilidades.urlMto);
+            URL url = new URL(utilidades.url_mto);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
