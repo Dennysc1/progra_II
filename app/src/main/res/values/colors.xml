@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="botones">#0740EA</color>
+    <color name="botonescerrar">#E38E0E</color>
+    <color name="b">#23E30E</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

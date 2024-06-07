@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "112683459757",
+    "firebase_url": "https://practicaugbprograii-default-rtdb.firebaseio.com",
+    "project_id": "practicaugbprograii",
+    "storage_bucket": "practicaugbprograii.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112683459757:android:2eb3fa6e79899a48171224",
+        "android_client_info": {
+          "package_name": "com.ugb.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSKXRp_QsQ6Nk1rz-xd2zL7lWW9_2tsCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
