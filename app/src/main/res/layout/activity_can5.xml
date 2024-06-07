@@ -78,7 +78,7 @@
         android:layout_marginTop="270dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:backgroundTint="@color/b"
+        android:backgroundTint="@color/botones"
         android:backgroundTintMode="src_over"
         android:text="Volver"
         android:textSize="18dp" />
